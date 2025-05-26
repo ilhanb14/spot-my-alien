@@ -15,3 +15,5 @@
         Inloggen
     </button>
 </form>
+
+Heeft u nog geen account? <a href='{{ url('/register') }}'> Registreer! </a> <br>

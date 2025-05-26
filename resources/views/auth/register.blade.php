@@ -25,6 +25,8 @@
     </button>
 </form>
 
+Heeft u al een account? <a href='{{ url('/login') }}'> Log in! </a> <br>
+
 <!-- Display message after successful registration -->
 @if(session('success'))
     <div>
