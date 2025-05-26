@@ -3,15 +3,15 @@
 
     Email:<input type='email' id='email' name='email' value='{{ old('email') }}'> <br>
     @error('email')
-        <span>Error: {{ $message }}</span> <br>
+        <span>{{ $message }}</span> <br>
     @enderror
 
-    Password: <input type='password' id='password' name='password'> <br>
+    Wachtwoord: <input type='password' id='password' name='password'> <br>
     @error('password')
-        <span>Error: {{ $message }}</span> <br>
+        <span>{{ $message }}</span> <br>
     @enderror
 
     <button type="submit">
-        Login
+        Inloggen
     </button>
 </form>

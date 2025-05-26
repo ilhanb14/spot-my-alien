@@ -23,10 +23,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Registration Routes
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('Registreren');
 Route::post('/register', [AuthController::class, 'register']);
 
 // Login Routes
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('Inloggen');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);

@@ -27,7 +27,7 @@ class AuthController extends Controller
         // Ensure that passwords match
         if($request->password != $request->confirm_password) {
             return back()->withErrors([
-                'confirm_password' => 'The provided passwords must match',
+                'confirm_password' => 'Wachtwoorden moeten gelijk zijn.',
             ])->withInput($request->all());
         }
 
@@ -39,7 +39,7 @@ class AuthController extends Controller
         ]);
 
         // Redirect back with success message
-        return redirect('/register')->with('success', 'Registration successful!');
+        return redirect('/register')->with('success', 'Gebruiker geregistreerd!');
     }
 
     public function showLoginForm()
@@ -66,7 +66,7 @@ class AuthController extends Controller
 
         // Authentication failed
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Email of wachtwoord is onjuist.',
         ])->withInput($request->all());
     }
 
