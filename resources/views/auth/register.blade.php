@@ -1,4 +1,4 @@
-<form action='{{ url('/register')}}' enctype='multipart/form-data' method='POST'>
+<form action='{{ url('/register')}}' method='POST'>
     @csrf
 
     Name:<input type='text' id='name' name='name' value='{{ old('name') }}'> <br>
