@@ -38,7 +38,35 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Redirect to home page with success message
+        // Redirect back with success message
         return redirect('/register')->with('success', 'Registration successful!');
     }
+
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    public function login(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Attempt to log the user in
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->filled('remember'))) {
+            // Regenerate session
+            $request->session()->regenerate();
+            
+            // Redirect to intended location or homepage
+            return redirect()->intended('/');
+        }
+
+        // Authentication failed
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput($request->all());
+    }    
 }
