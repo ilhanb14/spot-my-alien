@@ -16,6 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SightingResource extends Resource
 {
     protected static ?string $model = Sighting::class;
+    protected static ?string $navigationGroup = 'Beheer';
+    protected static ?string $label = "melding";
+    protected static ?string $pluralModelLabel = 'meldingen';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,7 +26,34 @@ class SightingResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\DateTimePicker::make('date_time')
+                    ->label('Datum en Tijd')
+                    ->native(false)
+                    ->seconds(false)
+                    ->minutesStep(5)
+                    ->maxDate(now())
+                    ->required(),
+
+                Forms\Components\TextInput::make('location')
+                    ->label('Locatie')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\Select::make('user_id')
+                    ->label('Gebruiker')
+                    ->relationship('user', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                Forms\Components\Select::make('type_id')
+                    ->label('type')
+                    ->relationship('type', 'name'),
+
+
+                Forms\Components\Textarea::make('description')
+                    ->label('Omschrijving')
+                    ->required(),
+
             ]);
     }
 

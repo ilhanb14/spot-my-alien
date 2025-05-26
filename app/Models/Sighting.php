@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use function PHPSTORM_META\type;
+
 class Sighting extends Model
 {
     public function ufo(){
@@ -16,5 +18,13 @@ class Sighting extends Model
 
     public function abduction(){
         return $this->hasOne(AbductionSighting::class);
+    }
+
+    public function type(){
+        return $this->hasOne(Type::class);
+    }
+
+    public function user(){
+        return $this->hasOne(User::class);
     }
 }
