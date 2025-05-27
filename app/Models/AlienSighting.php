@@ -13,4 +13,9 @@ class AlienSighting extends Model
     {
         return $this->belongsTo(Sighting::class);
     }
+
+    public function alienshape()
+    {
+        return $this->belongsTo(AlienShape::class);
+    }
 }

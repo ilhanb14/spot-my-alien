@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class Status extends Model
 {
-    public function abductionsighting(){
+    public function abductionsightings()
+    {
         return $this->hasMany(AbductionSighting::class);
     }
 }
