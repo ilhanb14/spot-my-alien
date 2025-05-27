@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('ufo_sightings', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('sighting_id');
+
             $table->bigInteger('speed')->nullable();
             $table->bigInteger('shape_id')->nullable();
             $table->string('color')->nullable();
+            $table->timestamps();
         });
     }
 

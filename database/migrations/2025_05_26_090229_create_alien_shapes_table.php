@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('alien_shapes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image_path');
         });
     }
 
