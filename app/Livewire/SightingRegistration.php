@@ -164,6 +164,19 @@ class SightingRegistration extends Component
         // Send mail to the user
         Mail::to($user->email)->send(new SightingMail($user, $sighting));
 
+        // Send notification email to admin with plain text
+        $adminEmail = 'admin@example.com';
+        $subject = 'Nieuwe waarneming ingegeven';
+        $message = "Een waarneming werd ingegeven op {$sighting->created_at}:\n\n
+                    Gebruikersnaam: {$user->name}\n
+                    Email: {$user->email}\n
+                    Id van gebruiker: {$user->id}\n
+                    Id van de waarneming: {$sighting->id}";
+        Mail::raw($message, function ($mail) use ($adminEmail, $subject) {
+            $mail->to($adminEmail)
+                ->subject($subject);
+        });
+
         $this->reset();
         $this->mount();
 
