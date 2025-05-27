@@ -16,8 +16,9 @@ return new class extends Migration
             $table->bigInteger('type_id');
             $table->dateTime('date_time');
             $table->text('description');
-            $table->bigInteger('user_id');
             $table->string('location');
+            $table->timestamps();
+            $table->foreignId('status_id')->constrained('status')->cascadeOnDelete();
         });
     }
 
