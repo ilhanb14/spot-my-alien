@@ -47,7 +47,10 @@ class SightingMail extends Mailable
             with: [
                 'userName' => $this->user->name,
                 'sightingType' => $this->sighting->type->name,
-                'dateTime' => $this->sighting->date_time,
+                'sightingDateTime' => $this->sighting->date_time,
+                'sightingLocation' => $this->sighting->location,
+                'sightingDescription' => $this->sighting->description,
+                'createdAt' => $this->sighting->created_at,
             ],
         );
     }
