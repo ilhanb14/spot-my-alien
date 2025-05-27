@@ -12,6 +12,9 @@ use App\Models\Sighting;
 use App\Models\Type;
 use App\Models\UfoShape;
 use App\Models\UfoSighting;
+use App\Mail\SightingMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -100,6 +103,7 @@ class SightingRegistration extends Component
     {
 
         $this->validate();
+        $user = Auth::user();
 
         // First store the generic sighting
         $sighting = Sighting::create([
@@ -156,6 +160,22 @@ class SightingRegistration extends Component
                 ]);
             break;
         }
+
+        // Send mail to the user
+        Mail::to($user->email)->send(new SightingMail($user, $sighting));
+
+        // Send notification email to admin with plain text
+        $adminEmail = 'admin@example.com';
+        $subject = 'Nieuwe waarneming ingegeven';
+        $message = "Een waarneming werd ingegeven op {$sighting->created_at}:\n\n
+                    Gebruikersnaam: {$user->name}\n
+                    Email: {$user->email}\n
+                    Id van gebruiker: {$user->id}\n
+                    Id van de waarneming: {$sighting->id}";
+        Mail::raw($message, function ($mail) use ($adminEmail, $subject) {
+            $mail->to($adminEmail)
+                ->subject($subject);
+        });
 
         $this->reset();
         $this->mount();
