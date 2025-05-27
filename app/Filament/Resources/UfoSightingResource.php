@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AlienSightingResource\Pages;
-use App\Filament\Resources\AlienSightingResource\RelationManagers;
-use App\Models\AlienSighting;
-use App\Models\Sighting;
+use App\Filament\Resources\UfoSightingResource\Pages;
+use App\Filament\Resources\UfoSightingResource\RelationManagers;
+use App\Models\UfoSighting;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Forms\FormsComponent;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -16,12 +14,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AlienSightingResource extends Resource
+class UfoSightingResource extends Resource
 {
-    protected static ?string $model = AlienSighting::class;
-    protected static ?string $label = 'Alien-waarneming';
-    protected static ?string $pluralLabel = "Alien-waarnemingen";
+    protected static ?string $model = UfoSighting::class;
     protected static ?string $navigationGroup = 'Data';
+    protected static ?string $label = 'UFO-Waarneming';
+    protected static ?string $pluralLabel = 'UFO-Waarnemingen';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -29,29 +27,17 @@ class AlienSightingResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('aggression_level')
-                    ->label('Niveau van agressie')
+                Forms\Components\TextInput::make('speed')
+                    ->label('snelheid')
                     ->numeric()
                     ->minValue(0)
                     ->maxValue(10),
-                Forms\Components\TextInput::make('intelligence_level')
-                    ->label("Niveau van intelligentie")
-                    ->minValue(0)
-                    ->maxValue(10)
-                    ->numeric(),
-                Forms\Components\TextInput::make('spoken_language')
-                    ->label("gekende taal")
+                Forms\Components\TextInput::make("color")
+                    ->label("kleur")
                     ->maxLength(255),
-                Forms\Components\TextInput::make('food_source')
-                    ->label("Voedselbron")
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('speed')
-                    ->label('snelheid')
-                    ->numeric()->minValue(0)
-                    ->maxValue(10),
                 Forms\Components\Select::make('sighting_id')
+                ->required()
                     ->relationship('sighting', 'description')
-                    ->required()
                     ->createOptionForm(
                         [
                             Forms\Components\DateTimePicker::make('date_time')
@@ -88,8 +74,9 @@ class AlienSightingResource extends Resource
                         ]
 
                     ),
-                Forms\components\Select::make('shape_id')
-                    ->relationship('alienShape', 'name')->required(),
+                Forms\Components\Select::make('shape_id')
+                    ->relationship('ufoshape', 'name')
+                    ->required()
             ]);
     }
 
@@ -102,7 +89,6 @@ class AlienSightingResource extends Resource
                 TextColumn::make("sighting.location")->label('locatie'),
                 TextColumn::make('alienshape.name'),
                 TextColumn::make('sighting.created_at')->label('Meldingsdatum')
-
             ])
             ->filters([
                 //
@@ -127,9 +113,9 @@ class AlienSightingResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAlienSightings::route('/'),
-            'create' => Pages\CreateAlienSighting::route('/create'),
-            'edit' => Pages\EditAlienSighting::route('/{record}/edit'),
+            'index' => Pages\ListUfoSightings::route('/'),
+            'create' => Pages\CreateUfoSighting::route('/create'),
+            'edit' => Pages\EditUfoSighting::route('/{record}/edit'),
         ];
     }
 }

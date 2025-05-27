@@ -15,6 +15,6 @@ class UfoSighting extends Model
 
     public function ufoshape()
     {
-        return $this->belongsTo(UfoShape::class);
+        return $this->belongsTo(UfoShape::class, 'shape_id');
     }
 }

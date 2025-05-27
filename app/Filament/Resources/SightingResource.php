@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SightingResource extends Resource
 {
     protected static ?string $model = Sighting::class;
-    protected static ?string $navigationGroup = 'Beheer';
+    protected static ?string $navigationGroup = 'Data';
     protected static ?string $label = "melding";
     protected static ?string $pluralModelLabel = 'meldingen';
 
@@ -55,6 +55,10 @@ class SightingResource extends Resource
                 Forms\Components\Textarea::make('description')
                     ->label('Omschrijving')
                     ->required(),
+
+                Forms\Components\Select::make('status_id')
+                ->relationship('status', 'name')->required()
+                
 
             ]);
     }

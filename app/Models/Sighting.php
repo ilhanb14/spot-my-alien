@@ -16,7 +16,7 @@ class Sighting extends Model
         return $this->hasOne(AlienSighting::class);
     }
 
-    public function abduction(){
+    public function abductionsighting(){
         return $this->hasOne(AbductionSighting::class);
     }
 
@@ -25,6 +25,10 @@ class Sighting extends Model
     }
 
     public function user(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
+    public function status(){
+        return $this->belongsTo(Status::class);
+    }
+
 }
