@@ -8,4 +8,13 @@ class AbductionSighting extends Model
 {
     public $timestamps = false;
     protected $guarded = [];
+    
+    public function sighting()
+    {
+        return $this->belongsTo(Sighting::class);
+    }
+
+    public function state(){
+        return $this->belongsTo(State::class);
+    }
 }

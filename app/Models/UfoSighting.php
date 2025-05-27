@@ -8,4 +8,8 @@ class UfoSighting extends Model
 {
     public $timestamps = false;
     protected $guarded = [];
+
+    public function sighting() {
+        return $this->belongsTo(Sighting::class);
+    }
 }
