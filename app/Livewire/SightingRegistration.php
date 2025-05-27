@@ -106,8 +106,9 @@ class SightingRegistration extends Component
             'type_id' => $this->type,
             'date_time' => $this->date_time,
             'description' => $this->description,
-            'user_id' => 0,
-            'location' => $this->location
+            'user_id' => 1,
+            'location' => $this->location,
+            'status_id' => 1,
         ]);
 
         // Then store the photo(s), if any
