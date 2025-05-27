@@ -12,6 +12,9 @@ use App\Models\Sighting;
 use App\Models\Type;
 use App\Models\UfoShape;
 use App\Models\UfoSighting;
+use App\Mail\SightingMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -100,6 +103,7 @@ class SightingRegistration extends Component
     {
 
         $this->validate();
+        $user = Auth::user();
 
         // First store the generic sighting
         $sighting = Sighting::create([
@@ -156,6 +160,9 @@ class SightingRegistration extends Component
                 ]);
             break;
         }
+
+        // Send mail to the user
+        Mail::to($user->email)->send(new SightingMail($user, $sighting));
 
         $this->reset();
         $this->mount();

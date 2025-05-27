@@ -1,0 +1,3 @@
+Hallo {{ $userName }}!
+{{ $dateTime }}
+{{ $sightingType }}
