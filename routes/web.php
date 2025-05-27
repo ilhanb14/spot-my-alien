@@ -5,6 +5,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,3 +31,7 @@ Route::post('/registreer', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/loguit', [AuthController::class, 'logout']);
+
+// Payment Routes
+Route::get('/doneer', [PaymentController::class, 'showDonationForm']);
+Route::post('/doneer', [PaymentController::class, 'process']);
