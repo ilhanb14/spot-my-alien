@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -17,8 +18,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AlienShapeResource extends Resource
 {
     protected static ?string $model = AlienShape::class;
+    protected static ?string $navigationGroup = 'Beheer';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $label = 'Alienvorm';
+    protected static ?string $pluralLabel = 'Alienvormen';
 
     public static function form(Form $form): Form
     {
@@ -27,8 +31,9 @@ class AlienShapeResource extends Resource
                 Forms\Components\TextInput::make('name')->maxLength(255)->required(),
                 Forms\Components\FileUpload::make('image_path')
                     ->image()
-                    ->label('Shape photo')
                     ->disk('public')
+                    ->visibility('public')
+                    ->label('Shape photo')
                     ->directory('alien-shapes')
                     ->required(),
             ]);
@@ -38,9 +43,11 @@ class AlienShapeResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('name')->label('Naam'),
                 ImageColumn::make('image_path')
-                ->disk('public')
-                ->label('foto')
+                    ->label('foto')
+                    ->disk('public')
+                    ->visibility('public'),
 
             ])
             ->filters([

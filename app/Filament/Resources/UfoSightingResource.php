@@ -87,7 +87,7 @@ class UfoSightingResource extends Resource
                 TextColumn::make("sighting.user.name")->label('gebruikersnaam'),
                 TextColumn::make("sighting.description")->label('omschrijving'),
                 TextColumn::make("sighting.location")->label('locatie'),
-                TextColumn::make('alienshape.name'),
+                TextColumn::make('ufoshape.name'),
                 TextColumn::make('sighting.created_at')->label('Meldingsdatum')
             ])
             ->filters([
