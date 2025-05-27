@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->bigInteger('speed')->nullable();
-            $table->bigInteger('shape_id')->nullable();
             $table->string('color')->nullable();
-            $table->timestamps();
         });
     }
 
