@@ -1,4 +1,4 @@
-<form action='{{ url('/register')}}' method='POST'>
+<form action='{{ url('/registreer')}}' method='POST'>
     @csrf
 
     Naam:<input type='text' id='name' name='name' value='{{ old('name') }}'> <br>
