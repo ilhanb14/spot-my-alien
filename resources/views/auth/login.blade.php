@@ -16,4 +16,4 @@
     </button>
 </form>
 
-Heeft u nog geen account? <a href='{{ url('/register') }}'> Registreer! </a> <br>
+Heeft u nog geen account? <a href='{{ url('/registreer') }}'> Registreer! </a> <br>
