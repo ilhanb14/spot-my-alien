@@ -31,7 +31,7 @@ class SightingRegistration extends Component
 
     // UFO
     public $ufo_speed = 0;
-    public $ufo_shape_id = 0;
+    public $ufo_shape_id;
     public $ufo_color = '';
 
     // ALIEN
@@ -44,14 +44,12 @@ class SightingRegistration extends Component
     public $alien_food_source = '';
 
     // ONTVOERING
-    public $abduction_subject = '';
-    public $abduction_duration = 0;
-    public $abduction_examination = '';
-    public $abduction_returned;
-    public $abduction_live_subject;
+    public $abduction_subject;
+    public $abduction_duration;
+    public $abduction_examination;
+    public $abduction_returned = 0;
+    public $abduction_live_subject = 0;
     public $abduction_state_id;
-
-    public $specificFormData = [];
 
     public function mount()
     {
@@ -62,15 +60,10 @@ class SightingRegistration extends Component
     function updatedType($value)
     {
         $this->reset('message');
+        $this->resetErrorBag();
 
         switch (Type::find($value)->name) {
             case "ufo":
-                // $specificFormData = [
-                //     'speed' => 0,
-                //     'shape_id' => '',
-                //     'color' => ''
-                // ];
-
                 $this->shapes = UfoShape::all();
             break;
             case "alien":
@@ -97,6 +90,10 @@ class SightingRegistration extends Component
 
     public function saveSighthing()
     {
+
+        $this->validate();
+
+        // First store the generic sighting
         $sighting = Sighting::create([
             'type_id' => $this->type,
             'date_time' => $this->date_time,
@@ -104,6 +101,8 @@ class SightingRegistration extends Component
             'user_id' => 0,
             'location' => $this->location
         ]);
+
+        // Then store the type specific sighting details
 
         switch (Type::find($this->type)->name) {
             case "ufo":
@@ -140,11 +139,58 @@ class SightingRegistration extends Component
         }
 
         $this->message = 'Uw melding werd geregistreerd';
+
+        $this->type = null;
     }
 
+    // Form validation (based on selected sighting type)
     public function rules()
     {
+        // Validation for the generic form fields
+        $genericFields = [
+            'date_time' => 'required',
+            'location' => 'required|min:2',
+            'description' => 'required|min:10'
+        ];
 
+        // Add validation for the type specific form fields
+        switch (Type::find($this->type)->name) {
+            case "ufo":
+                return array_merge($genericFields, [
+                    'ufo_shape_id' => 'required'
+                ]);
+            break;
+            case "alien":
+                return array_merge($genericFields, [
+                    'alien_shape_id' => 'required'
+                ]);
+            break;
+            case "ontvoering":
+                return array_merge($genericFields, [
+                    'abduction_subject' => 'required|min:2',
+                    'abduction_state_id' => $this->abduction_returned ? 'required' : '',
+                ]);
+            break;
+        }
+
+        return $genericFields;
+    }
+
+    // Custom (translated) error messages
+    public function messages()
+    {
+        return [
+            'date_time.required' => 'De datum + tijd is verplicht.',
+            'location.required' => 'Geef de locatie van de waarneming in.',
+            'location.min' => 'De locatie moet minstens 2 karakters lang zijn.',
+            'description.required' => 'Geef de beschrijving in.',
+            'description.min' => 'De beschrijving moet minstens 10 karakters zijn.',
+            'ufo_shape_id.required' => 'Kies de vorm van de UFO.',
+            'alien_shape_id.required' => 'Kies de vorm van de Alien.',
+            'abduction_subject.required' => 'Geef het onderwerp van de ontvoering in.',
+            'abduction_subject.min' => 'Het onderwerp van de ontvoering moet minstens 2 karakters zijn.',
+            'abduction_state_id.required' => 'Kies de status van het teruggebrachte onderwerp.'
+        ];
     }
 
     public function render()

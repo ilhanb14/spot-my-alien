@@ -80,3 +80,7 @@ select:focus[data-flux-control] {
 .form-input input[type=color] {
     @apply p-0 border-0 bg-none;
 }
+
+.validationError {
+    @apply text-sm text-red-500;
+}
