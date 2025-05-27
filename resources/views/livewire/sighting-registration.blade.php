@@ -48,6 +48,18 @@
                     @enderror
                     <p class="text-sm">Beschrijf uw waarneming zo gedetailleerd mogelijk.</p>
                 </div>
+                <div class="form-input">
+                    <label for="description">Foto(s):</label>
+                    <input type="file" wire:model="photo" multiple>
+                    @error('photo.*')
+                        <div class="validationError">{{ $message }}</div>
+                    @enderror
+                    @if ($photo)
+                        @foreach ($photo as $item)
+                            <img class="w-full" src="{{ $item->temporaryUrl() }}">
+                        @endforeach
+                    @endif
+                </div>
 
                 @switch ($sightingTypes->find($type)->name)
                     @case ('ufo')

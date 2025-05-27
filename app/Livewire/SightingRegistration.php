@@ -6,6 +6,7 @@ use App\Models\AbductionSighting;
 use App\Models\AbductionState;
 use App\Models\AlienShape;
 use App\Models\AlienSighting;
+use App\Models\Image;
 use App\Models\Intention;
 use App\Models\Sighting;
 use App\Models\Type;
@@ -13,9 +14,13 @@ use App\Models\UfoShape;
 use App\Models\UfoSighting;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class SightingRegistration extends Component
 {
+
+    use WithFileUploads;
+
     public $sightingTypes = [];
     public $shapes = [];
     public $intentions = [];
@@ -28,6 +33,9 @@ class SightingRegistration extends Component
     public $description = '';
     public $user_id = '';
     public $location = '';
+
+    public $photo_path = '';
+    public $photo = [];
 
     // UFO
     public $ufo_speed = 0;
@@ -102,6 +110,16 @@ class SightingRegistration extends Component
             'location' => $this->location
         ]);
 
+        // Then store the photo(s), if any
+        if ($this->photo) {
+            foreach ($this->photo as $photo) {
+                Image::create([
+                    'sighting_id' => $sighting->id,
+                    'path' => $photo->storePublicly('sighting_photos', ['disk' => 'public']),
+                ]);
+            }
+        }
+
         // Then store the type specific sighting details
 
         switch (Type::find($this->type)->name) {
@@ -138,9 +156,10 @@ class SightingRegistration extends Component
             break;
         }
 
-        $this->message = 'Uw melding werd geregistreerd';
+        $this->reset();
+        $this->mount();
 
-        $this->type = null;
+        $this->message = 'Uw melding werd geregistreerd';
     }
 
     // Form validation (based on selected sighting type)
@@ -150,7 +169,8 @@ class SightingRegistration extends Component
         $genericFields = [
             'date_time' => 'required',
             'location' => 'required|min:2',
-            'description' => 'required|min:10'
+            'description' => 'required|min:10',
+            'photo.*' => 'image|max:1024'
         ];
 
         // Add validation for the type specific form fields
@@ -189,7 +209,8 @@ class SightingRegistration extends Component
             'alien_shape_id.required' => 'Kies de vorm van de Alien.',
             'abduction_subject.required' => 'Geef het onderwerp van de ontvoering in.',
             'abduction_subject.min' => 'Het onderwerp van de ontvoering moet minstens 2 karakters zijn.',
-            'abduction_state_id.required' => 'Kies de status van het teruggebrachte onderwerp.'
+            'abduction_state_id.required' => 'Kies de status van het teruggebrachte onderwerp.',
+            'photo.*.max' => 'De foto mag niet groter zijn dan 1MB'
         ];
     }
 
