@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,8 +47,9 @@ class SightingResource extends Resource
                     ->preload()
                     ->required(),
                 Forms\Components\Select::make('type_id')
-                    ->label('type')
-                    ->relationship('type', 'name'),
+                    ->label('Type')
+                    ->relationship('type', 'name')
+                    ->required(),
 
 
                 Forms\Components\Textarea::make('description')
@@ -61,7 +63,11 @@ class SightingResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->label('Naam'),
+                TextColumn::make('location')->label('Locatie'),
+                TextColumn::make('description')->label('Omschrijving'),
+                TextColumn::make('type.name')->label('Type'),
+                TextColumn::make('created_at')->label('Gemaakt Op')->dateTime('m-d-Y h:i A'),
             ])
             ->filters([
                 //
@@ -79,7 +85,6 @@ class SightingResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
 

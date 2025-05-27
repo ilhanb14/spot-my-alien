@@ -26,6 +26,7 @@ return new class extends Migration
 
         Schema::table('abduction_sightings', function (Blueprint $table) {
             $table->foreignId('abduction_state_id')->constrained('states')->cascadeOnDelete();
+            $table->foreignId('sighting_id')->constrained('sightings')->cascadeOnDelete();
         });
     }
 

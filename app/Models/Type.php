@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
-    public function sighting()
+    public function sightings()
     {
-        return $this->belongsTo(Sighting::class);
+        return $this->hasMany(Sighting::class);
     }
 }

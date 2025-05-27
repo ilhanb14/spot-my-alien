@@ -10,4 +10,8 @@ class AbductionSighting extends Model
     {
         return $this->belongsTo(Sighting::class);
     }
+
+    public function state(){
+        return $this->belongsTo(State::class);
+    }
 }
