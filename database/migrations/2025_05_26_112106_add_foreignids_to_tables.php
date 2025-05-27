@@ -17,11 +17,12 @@ return new class extends Migration
 
         Schema::table('ufo_sightings', function (Blueprint $table) {
             $table->foreignId('sighting_id')->constrained('sightings')->cascadeOnDelete();
+            $table->foreignId('shape_id')->constrained('ufo_shapes')->cascadeOnDelete();
         });
 
         Schema::table('alien_sightings', function (Blueprint $table) {
             $table->foreignId('sighting_id')->constrained('sightings')->cascadeOnDelete();
-            $table->foreignId('shape_id')->constrained('ufo_shapes')->cascadeOnDelete();
+            $table->foreignId('shape_id')->constrained('alien_shapes')->cascadeOnDelete();
         });
 
         Schema::table('abduction_sightings', function (Blueprint $table) {
