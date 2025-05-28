@@ -14,6 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 Route::get('/waarnemingen', function () {
     try {
         $sightings = Sighting::orderBy('id', 'desc')->take(5)->get();
@@ -29,21 +32,15 @@ Route::get('/over-ons', function () {
     return view('about');
 })->name('about');
 
-// Authentication routes
-require __DIR__.'/auth.php';
-
 // Authenticated routes
 Route::middleware(['auth'])->group(function () {
-    Route::view('dashboard', 'dashboard')
-        ->middleware('verified')
-        ->name('dashboard');
+    // Payment Routes
+    Route::get('/doneer', [PaymentController::class, 'showDonationForm']);
+    Route::post('/doneer', [PaymentController::class, 'process']);
 
-    Route::prefix('settings')->group(function () {
-        Route::redirect('', 'settings/profile');
-        Route::get('profile', Profile::class)->name('settings.profile');
-        Route::get('password', Password::class)->name('settings.password');
-        Route::get('appearance', Appearance::class)->name('settings.appearance');
-    });
+    Route::get('/sighting', function () {
+        return view('sighting');
+    })->name('sighting');
 });
 // Registration Routes
 Route::get('/registreer', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -53,7 +50,3 @@ Route::post('/registreer', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/loguit', [AuthController::class, 'logout']);
-
-// Payment Routes
-Route::get('/doneer', [PaymentController::class, 'showDonationForm']);
-Route::post('/doneer', [PaymentController::class, 'process']);

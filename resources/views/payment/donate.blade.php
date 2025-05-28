@@ -1,21 +1,41 @@
-@include('partials.header')
+@extends('partials.header')
 @section('title', "Doneer")
 
-<form id="donation-form" method="POST" action="{{ url('/doneer') }}">
-    @csrf
-    <label>Hoeveelheid (€):</label>
-    <input type="number" name="amount" min="1" required>
+@section('content')
+<div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+<div class="space-y-8">
+    <div class="bg-gray-800 p-6 rounded-lg">
+        <h1 class="text-4xl font-bold mb-8 text-center">Doneer!</h1>
+        <form id="donation-form" method="POST" action="{{ url('/doneer') }}" class="space-y-4 max-w-md mx-auto">
+            @csrf
 
-    <!-- Stripe Elements will insert card info here -->
-    <div id="card-element"></div>
+            <div class="flex flex-col">
+                <label for="amount" class="mb-1 font-medium">Hoeveelheid (€):</label>
+                <input type="number" name="amount" min="1" required 
+                    class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-    <button type="submit">Doneer</button>
-</form>
-@if(session('success'))
-    <div>
-        {{ session('success') }}
+            <div class="flex flex-col">
+                <label class="mb-1 font-medium">Kaartgegevens:</label>
+                <!-- Stripe Elements will insert card info here -->
+                <div id="card-element" class="border border-gray-300 rounded px-3 py-2 bg-white text-black"></div>
+            </div>
+
+            <div>
+                <button type="submit" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded w-full mb-4">
+                    Doneer
+                </button>
+            </div>
+        </form>
+        @if(session('success'))
+            <div class='font-bold text-green-600'>
+                {{ session('success') }}
+            </div>
+        @endif
     </div>
-@endif
+</div>
+</div>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
@@ -46,4 +66,4 @@
     });
 </script>
 
-@include('partials.footer')
+@endsection

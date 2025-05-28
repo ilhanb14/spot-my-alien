@@ -8,3 +8,4 @@
 </footer>
 @livewireScripts
 </body>
+</html>

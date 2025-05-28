@@ -64,3 +64,23 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+.form-input {
+    @apply border border-gray-700 p-4 rounded-md bg-gray-800;
+}
+.form-input input, .form-input select, .form-input textarea {
+    @apply border border-blue-500 rounded-md bg-indigo-100 p-2 w-full text-gray-900;
+}
+.form-input input[type=checkbox] {
+    @apply w-auto;
+}
+.form-input input[type=range] {
+    @apply px-0;
+}
+.form-input input[type=color] {
+    @apply p-0 border-0 bg-none;
+}
+
+.validationError {
+    @apply text-sm text-red-500;
+}
