@@ -9,7 +9,8 @@
     @vite(['resources/css/app.css'])
     @livewireStyles
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+    <main class='flex-grow'>
     <!-- Navigatie -->
     <nav class="bg-gray-800 shadow-lg mb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,6 +40,7 @@
             </div>
         </div>
     </nav>
-@yield('content')
+    @yield('content')
+    </main>
 
 @include('partials.footer')
