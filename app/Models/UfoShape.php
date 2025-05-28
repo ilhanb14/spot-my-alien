@@ -11,4 +11,5 @@ class UfoShape extends Model
     {
         $this->hasMany(UfoSighting::class);
     }
+
 }

@@ -35,7 +35,7 @@ class AbductionSightingResource extends Resource
                 Forms\Components\Select::make('abductionstate_id')
                     ->relationship('abductionstate', 'name')->columnSpan(3)
                     ->label('Staat wanneer teruggevonden'),
-                Forms\Components\Checkbox::make('examination')->label("Onderzocht?"),
+                Forms\Components\TextInput::make('examination')->label("Type onderzoek?")->length(255),
                 Forms\Components\Checkbox::make('returned')->label('Teruggebracht?'),
                 Forms\Components\Checkbox::make('live_subject')->label('levend voorwerp?'),
                 Forms\Components\Select::make('sighting_id')

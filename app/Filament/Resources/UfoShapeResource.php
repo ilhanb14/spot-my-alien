@@ -38,6 +38,8 @@ class UfoShapeResource extends Resource
                     ->label('ufo vorm foto')
                     ->directory('ufo-shapes')
                     ->required(),
+
+
             ]);
     }
 

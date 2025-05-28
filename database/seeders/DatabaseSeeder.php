@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             TypeSeeder::class
         ]);
 
+        Sighting::factory()->count(10)->create();
+
         // Sighting::factory()->count(10)->alientype()->create();
         
     }
