@@ -29,6 +29,10 @@ Route::get('/over-ons', function () {
     return view('about');
 })->name('about');
 
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
 // Authentication routes
 require __DIR__.'/auth.php';
 
