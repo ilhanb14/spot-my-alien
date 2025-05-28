@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SightingResource\Pages;
 use App\Filament\Resources\SightingResource\RelationManagers;
+use App\Filament\Widgets\SightingsInsight;
+use App\Filament\Widgets\SightingsStatusInsight;
 use App\Models\Sighting;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -17,7 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SightingResource extends Resource
 {
     protected static ?string $model = Sighting::class;
-    protected static ?string $navigationGroup = 'Beheer';
+    protected static ?string $navigationGroup = 'Data';
     protected static ?string $label = "melding";
     protected static ?string $pluralModelLabel = 'meldingen';
 
@@ -56,6 +58,10 @@ class SightingResource extends Resource
                     ->label('Omschrijving')
                     ->required(),
 
+                Forms\Components\Select::make('status_id')
+                    ->relationship('status', 'name')->required()
+
+
             ]);
     }
 
@@ -63,11 +69,18 @@ class SightingResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label('Naam'),
+                TextColumn::make('user.name')->label('Gebruikersnaam'),
                 TextColumn::make('location')->label('Locatie'),
                 TextColumn::make('description')->label('Omschrijving'),
                 TextColumn::make('type.name')->label('Type'),
                 TextColumn::make('created_at')->label('Gemaakt Op')->dateTime('m-d-Y h:i A'),
+                TextColumn::make('status.name')
+                    ->color(fn(string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'approved' => 'success',
+                        'denied' => 'failed',
+                        default => 'grey',
+                    })
             ])
             ->filters([
                 //
@@ -84,8 +97,7 @@ class SightingResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-        ];
+        return [];
     }
 
     public static function getPages(): array
