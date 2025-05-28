@@ -82,6 +82,7 @@ class AlienSightingResource extends Resource
                                 ->required(),
 
                             Forms\Components\Select::make('status_id')
+                                ->default(1)
                                 ->relationship('status', 'name')->required()
                         ]
 
