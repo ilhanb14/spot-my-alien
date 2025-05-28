@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
+use App\Models\Sighting;
 
 // Public routes
 Route::get('/', function () {
@@ -15,10 +16,7 @@ Route::get('/', function () {
 
 Route::get('/waarnemingen', function () {
     try {
-        $json = Storage::disk('public')->get('sightings.json');
-        
-        if (!$json) abort(404, 'Bestand niet gevonden');
-        $sightings = json_decode($json, true);
+        $sightings = Sighting::orderBy('id', 'desc')->take(5)->get();
 
         return view('sightings', ['sightings' => $sightings]);
         
