@@ -86,6 +86,8 @@ class AlienSightingResource extends Resource
                                 ->relationship('status', 'name')->required(),
                             Forms\Components\Checkbox::make('is_featured')
                                 ->label('uitgelicht?')
+                                ->default(false)
+
                         ]
 
                     ),
