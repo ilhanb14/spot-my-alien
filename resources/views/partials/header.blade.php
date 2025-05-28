@@ -11,13 +11,15 @@
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
     <!-- Navigatie -->
-    <nav class="bg-gray-800 shadow-lg">
+    <nav class="bg-gray-800 shadow-lg mb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="{{ route('home') }}" class="flex-shrink-0 text-2xl font-bold">
                         🛸 SpotMyAlien
                     </a>
+
+                    <!-- Desktop nav links -->
                     <div class="hidden md:block ml-10">
                         <div class="flex space-x-4">
                             <a href="{{ route('sightings') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Recent</a>
@@ -25,8 +27,18 @@
                             <a href="{{ route('about') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Over Ons</a>
                         </div>
                     </div>
+                    
                 </div>
+            </div>
+        </div>
+        <div class="block md:hidden ml-10">
+            <div class="flex space-x-4 flex-col">
+                <a href="{{ route('sightings') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Recent</a>
+                <a href="{{ route('sightings') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Archief</a>
+                <a href="{{ route('about') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Over Ons</a>
             </div>
         </div>
     </nav>
 @yield('content')
+
+@include('partials.footer')
