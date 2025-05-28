@@ -50,6 +50,8 @@ class UfoShapeResource extends Resource
                     ->label('foto')
                     ->disk('public')
                     ->visibility('public')
+                    ->url(fn ($record) => asset('storage/' . $record->image_path))
+                    ->openUrlInNewTab()
 
             ])
             ->filters([

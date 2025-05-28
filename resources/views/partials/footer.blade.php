@@ -5,6 +5,15 @@
             <p class="mt-4">&copy; 2023 SpotMyAlien. Alle rechten voorbehouden.</p>
         </div>
     </div>
+    @auth
+    <form method="POST" action="{{ url('/loguit') }}" class='flex justify-center pb-8'>
+    @csrf
+    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-lg">
+        Loguit
+    </button>
+    @endauth
+</form>
 </footer>
 @livewireScripts
 </body>
+</html>

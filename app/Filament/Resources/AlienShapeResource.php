@@ -47,6 +47,8 @@ class AlienShapeResource extends Resource
                 ImageColumn::make('image_path')
                     ->label('foto')
                     ->disk('public')
+                    ->url(fn ($record) => asset('storage/' . $record->image_path))
+                    ->openUrlInNewTab()
                     ->visibility('public'),
 
             ])

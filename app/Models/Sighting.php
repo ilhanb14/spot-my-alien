@@ -8,16 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sighting extends Model
 {
+    protected $guarded = [''];
+    
     use HasFactory;
-
-    protected $fillable = [
-        'type_id',
-        'date_time',
-        'description',
-        'location',
-        'status_id',
-        'is_featured', // ADDED
-        'image_url'    // ADDED
+  
+    protected $casts = [
+        'date_time' => 'datetime',
     ];
 
     public function ufo()

@@ -3,13 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, Billable;
@@ -61,5 +64,11 @@ class User extends Authenticatable
 
     public function sightings(){
         return $this->hasMany(Sighting::class);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if($this->is_admin == 1 && $this->hasVerifiedEmail()) return true;
+        return false;
     }
 }
