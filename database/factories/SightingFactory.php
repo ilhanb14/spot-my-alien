@@ -22,7 +22,7 @@ class SightingFactory extends Factory
         return [
             'description' => fake()->randomElement(['groot en groen mette wa armen', 'nen octopus heeft hallo tegen me gezegd', 'mijn buurman spreekt opeens frans en wilt niet meer werken', 'coole grote hond met tentakels gezien']),
             'date_time' => fake()->dateTimeBetween('-1 year', now()),
-            'location' => fake()->locale(),
+            'location' => fake()->city(),
             'created_at' => fake()->dateTimeBetween('-1 year', now()),
             'updated_at' => now(),
             'status_id' => rand(1, 3),

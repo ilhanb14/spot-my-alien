@@ -12,9 +12,12 @@
             <p class="mt-6 max-w-3xl mx-auto text-xl text-gray-400 text-center">
                 Documenteer en deel onverklaarde luchtverschijnselen in ons land. Dé community voor Belgische hemelwachters.
             </p>
-            <div class="mt-10 flex justify-center">
+            <div class="mt-10 flex justify-center gap-3">
                 <a href="{{ route('sightings') }}" class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-medium">
                     Bekijk Waarnemingen
+                </a>
+                <a href="{{ route('login') }}" class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-medium">
+                    Aanmelden
                 </a>
             </div>
         </div>
