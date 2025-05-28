@@ -59,7 +59,9 @@ class SightingResource extends Resource
                     ->required(),
 
                 Forms\Components\Select::make('status_id')
-                    ->relationship('status', 'name')->required()
+                    ->relationship('status', 'name')->required(),
+                Forms\Components\Checkbox::make('is_featured')
+                ->label('uitgelicht?')
 
 
             ]);
