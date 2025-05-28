@@ -11,7 +11,14 @@ use App\Models\Sighting;
 
 // Public routes
 Route::get('/', function () {
-    return view('welcome');
+    // Fetch featured sightings (max 3)
+    $featuredSightings = Sighting::where('is_featured', true)
+        ->with('status') // Eager load status
+        ->orderBy('date_time', 'desc')
+        ->take(3)
+        ->get();
+
+    return view('welcome', ['featuredSightings' => $featuredSightings]); // PASS TO VIEW
 })->name('home');
 
 Route::get('/waarnemingen', function () {
@@ -28,6 +35,10 @@ Route::get('/waarnemingen', function () {
 Route::get('/over-ons', function () {
     return view('about');
 })->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 // Authentication routes
 require __DIR__.'/auth.php';

@@ -6,11 +6,19 @@ use Database\Factories\SightingFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use function PHPSTORM_META\type;
-
 class Sighting extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'type_id',
+        'date_time',
+        'description',
+        'location',
+        'status_id',
+        'is_featured', // ADDED
+        'image_url'    // ADDED
+    ];
 
     public function ufo()
     {
@@ -36,6 +44,7 @@ class Sighting extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
     public function status()
     {
         return $this->belongsTo(Status::class);

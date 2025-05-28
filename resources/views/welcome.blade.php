@@ -20,6 +20,7 @@
                             <a href="{{ route('sightings') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Recent</a>
                             <a href="{{ route('sightings') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Archief</a>
                             <a href="{{ route('about') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Over Ons</a>
+                            <a href="{{ route('contact') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Contact</a>                         
                         </div>
                     </div>
                 </div>
@@ -46,58 +47,29 @@
 
     <!-- Uitgelichte Waarnemingen -->
     <div class="max-w-7xl mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold mb-12 text-center">Bekende Belgische Gevallen</h2>
+        <h2 class="text-3xl font-bold mb-12 text-center">Uitgelichte Waarnemingen</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Waarneming 1 -->
+            @foreach ($featuredSightings as $sighting)
             <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                <img src="https://source.unsplash.com/800x600/?belgium,night-sky" 
+                <img src="{{ $sighting->image_url ?: 'https://source.unsplash.com/800x600/?ufo,sky' }}" 
                      class="h-48 w-full object-cover"
-                     alt="Belgische UFO Waarneming">
+                     alt="UFO waarneming in {{ $sighting->location }}">
                 <div class="p-6">
                     <div class="flex justify-between items-start">
-                        <h3 class="text-xl font-semibold">De Belgische Golf (1989-1990)</h3>
-                        <span class="text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Bevestigd</span>
+                        <h3 class="text-xl font-semibold">{{ $sighting->location }}</h3>
+                        <span class="text-xs bg-blue-600 text-white px-2 py-1 rounded-full">
+                            {{ $sighting->status->name ?? 'Bevestigd' }}
+                        </span>
                     </div>
                     <p class="mt-2 text-gray-400 text-sm">
-                        November 1989 - Maart 1990 · Heel België
+                        {{ \Carbon\Carbon::parse($sighting->date_time)->format('d F Y') }} · {{ $sighting->location }}
                     </p>
                     <p class="mt-4 text-gray-300">
-                        Meer dan 2000 meldingen van driehoekige UFO's vastgelegd door burgers en militaire radar.
+                        {{ \Illuminate\Support\Str::limit($sighting->description, 100) }}
                     </p>
                 </div>
             </div>
-
-            <!-- Waarneming 2 -->
-            <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                <img src="https://source.unsplash.com/800x600/?mechelen,belgium" 
-                     class="h-48 w-full object-cover"
-                     alt="Belgische UFO Waarneming">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold">Mechelen Incident (1975)</h3>
-                    <p class="mt-2 text-gray-400 text-sm">
-                        15 augustus 1975 · Mechelen
-                    </p>
-                    <p class="mt-4 text-gray-300">
-                        Politieagenten zagen een zwevend schotelvormig object boven de Dijle.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Waarneming 3 -->
-            <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                <img src="https://source.unsplash.com/800x600/?brussels,night" 
-                     class="h-48 w-full object-cover"
-                     alt="Belgische UFO Waarneming">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold">Brussels Licht (2008)</h3>
-                    <p class="mt-2 text-gray-400 text-sm">
-                        13 december 2008 · Brussel
-                    </p>
-                    <p class="mt-4 text-gray-300">
-                        Groep studenten filmde pulserende lichten boven het Europese parlement.
-                    </p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 
