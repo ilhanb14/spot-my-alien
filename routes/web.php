@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Sighting;
+use Illuminate\Support\Facades\Auth;
 
 // Public routes
 Route::get('/', function () {
@@ -41,6 +42,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sighting', function () {
         return view('sighting');
     })->name('sighting');
+
+    Route::get('/mijn-waarnemingen', function () {
+        try {
+            $sightings = Sighting::where('user_id', Auth::user()->id)->get();
+
+            return view('sightings', ['sightings' => $sightings]);
+            
+        } catch (\Exception $e) {
+            abort(500, 'Fout: ' . $e->getMessage());
+        }
+    })->name('my-sightings');
 });
 // Registration Routes
 Route::get('/registreer', [AuthController::class, 'showRegisterForm'])->name('register');
