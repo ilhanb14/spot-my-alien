@@ -36,7 +36,7 @@ class UfoSightingResource extends Resource
                     ->label("kleur")
                     ->maxLength(255),
                 Forms\Components\Select::make('sighting_id')
-                ->required()
+                    ->required()
                     ->relationship('sighting', 'description')
                     ->createOptionForm(
                         [
@@ -59,10 +59,8 @@ class UfoSightingResource extends Resource
                                 ->searchable()
                                 ->preload()
                                 ->required(),
-                            Forms\Components\Select::make('type_id')
-                                ->label('Type')
-                                ->relationship('type', 'name')
-                                ->required(),
+                            Forms\Components\Hidden::make('type_id')
+                                ->default(1),
 
 
                             Forms\Components\Textarea::make('description')
@@ -70,6 +68,7 @@ class UfoSightingResource extends Resource
                                 ->required(),
 
                             Forms\Components\Select::make('status_id')
+                                ->default(1)
                                 ->relationship('status', 'name')->required()
                         ]
 
