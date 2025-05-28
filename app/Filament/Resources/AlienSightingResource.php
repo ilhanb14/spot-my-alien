@@ -73,10 +73,8 @@ class AlienSightingResource extends Resource
                                 ->searchable()
                                 ->preload()
                                 ->required(),
-                            Forms\Components\Select::make('type_id')
-                                ->label('Type')
-                                ->relationship('type', 'name')
-                                ->required(),
+                            Forms\Components\Hidden::make('type_id')
+                                ->default(3),
 
 
                             Forms\Components\Textarea::make('description')
