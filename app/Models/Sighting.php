@@ -11,7 +11,7 @@ class Sighting extends Model
     protected $guarded = [''];
     
     use HasFactory;
-
+  
     protected $casts = [
         'date_time' => 'datetime',
     ];
@@ -40,6 +40,7 @@ class Sighting extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
     public function status()
     {
         return $this->belongsTo(Status::class);
