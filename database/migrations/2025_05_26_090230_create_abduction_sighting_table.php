@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('subject');
             $table->string('duration')->nullable();
-            $table->boolean('examination')->nullable();
+            $table->string('examination')->nullable();
             $table->boolean('returned');
             $table->boolean('live_subject');
         });
