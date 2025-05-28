@@ -32,17 +32,14 @@ class AbductionSightingResource extends Resource
                     ->required()->maxLength(255)->label('voorwerp'),
                 Forms\Components\TextInput::make('duration')
                     ->maxLength(255)->label('duur'),
-                Forms\Components\Select::make('abduction_state_id')
+                Forms\Components\Select::make('abductionstate_id')
                     ->relationship('abductionstate', 'name')->columnSpan(3)
                     ->label('Staat wanneer teruggevonden'),
-                Forms\Components\Select::make('status_id')
-                    ->relationship("status", 'name')
-                    ->columnSpan(3)
-                    ->label('Status'),
                 Forms\Components\Checkbox::make('examination')->label("Onderzocht?"),
                 Forms\Components\Checkbox::make('returned')->label('Teruggebracht?'),
                 Forms\Components\Checkbox::make('live_subject')->label('levend voorwerp?'),
                 Forms\Components\Select::make('sighting_id')
+                    ->required()
                     ->relationship('sighting', 'description')
                     ->createOptionForm(
                         [
@@ -65,10 +62,8 @@ class AbductionSightingResource extends Resource
                                 ->searchable()
                                 ->preload()
                                 ->required(),
-                            Forms\Components\Select::make('type_id')
-                                ->label('Type')
-                                ->relationship('type', 'name')
-                                ->required(),
+                            Forms\Components\Hidden::make('type_id')
+                                ->default(2),
 
 
                             Forms\Components\Textarea::make('description')
@@ -76,6 +71,7 @@ class AbductionSightingResource extends Resource
                                 ->required(),
 
                             Forms\Components\Select::make('status_id')
+                                ->default(1)
                                 ->relationship('status', 'name')->required()
                         ]
 
