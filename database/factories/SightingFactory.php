@@ -27,7 +27,9 @@ class SightingFactory extends Factory
             'updated_at' => now(),
             'status_id' => rand(1, 3),
             'type_id' => rand(1, 3),
-            'user_id' => fake()->randomElement(DB::table('users')->pluck('id')->toArray())
+            'user_id' => fake()->randomElement(DB::table('users')->pluck('id')->toArray()),
+            'is_featured' => rand(0, 1)
+
         ];
     }
 
@@ -46,22 +48,22 @@ class SightingFactory extends Factory
                 case 2:
                     DB::table('abduction_sightings')->insert([
                         'sighting_id' => $sighting->id,
-                        'subject' => fake()->randomElement(['den hond', 'den buurman','ons oma', 'een werkende waal']),
-                        'returned' => rand(0,1),
-                        'live_subject' => rand(0,1),
+                        'subject' => fake()->randomElement(['den hond', 'den buurman', 'ons oma', 'een werkende waal']),
+                        'returned' => rand(0, 1),
+                        'live_subject' => rand(0, 1),
                         'duration' => fake()->randomElement(['een dag', 'een uur', 'een jaar', 'een maand']),
-                        'abductionstate_id' => rand(1,3),
+                        'abductionstate_id' => rand(1, 3),
                         'examination' => fake()->randomElement([null, 'anaal', 'genitaal', 'oraal', 'beetje geluld']),
                     ]);
-                case 3 :
+                case 3:
                     DB::table('alien_sightings')->insert([
                         'sighting_id' => $sighting->id,
-                        'aggression_level' => rand(0,10),
-                        'intelligence_level' => rand(0,10),
+                        'aggression_level' => rand(0, 10),
+                        'intelligence_level' => rand(0, 10),
                         'spoken_language' => fake()->randomElement(['frans', 'nederland', 'glipglorpiaans', 'engels', 'verstond het niet']),
                         'food_source' => fake()->randomElement(['hout', 'vlees', 'mens', 'fruit']),
                         'intention_id' => fake()->randomElement(DB::table('intentions')->pluck('id')->toArray()),
-                        'speed' => rand(0,10),
+                        'speed' => rand(0, 10),
                         'shape_id' => fake()->randomElement(DB::table('alien_shapes')->pluck('id')->toArray())
                     ]);
                 default:
