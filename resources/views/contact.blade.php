@@ -19,9 +19,9 @@
                             👽
                         </div>
                         <div>
-                            <h3 class="font-semibold">Jan Jansen</h3>
-                            <p class="text-gray-400 text-sm">Frontend Developer</p>
-                            <p class="text-gray-300 mt-1">jan.jansen@spotmyalien.be</p>
+                            <h3 class="font-semibold">Michiel Konings</h3>
+                            <p class="text-gray-400 text-sm">Developer</p>
+                            <p class="text-gray-300 mt-1">michiel@spotmyalien.be</p>
                         </div>
                     </div>
 
@@ -31,9 +31,33 @@
                             🚀
                         </div>
                         <div>
-                            <h3 class="font-semibold">Marie Peeters</h3>
-                            <p class="text-gray-400 text-sm">Backend Developer</p>
-                            <p class="text-gray-300 mt-1">marie.peeters@spotmyalien.be</p>
+                            <h3 class="font-semibold">Michael Schrijvers</h3>
+                            <p class="text-gray-400 text-sm">Developer</p>
+                            <p class="text-gray-300 mt-1">michael@spotmyalien.be</p>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                            👽
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Ilhan Bayik</h3>
+                            <p class="text-gray-400 text-sm">Developer</p>
+                            <p class="text-gray-300 mt-1">ilhan@spotmyalien.be</p>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                            🚀
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Wim Lemmens</h3>
+                            <p class="text-gray-400 text-sm">Developer</p>
+                            <p class="text-gray-300 mt-1">wim@spotmyalien.be</p>
                         </div>
                     </div>
 
