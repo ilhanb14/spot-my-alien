@@ -12,6 +12,10 @@ class Sighting extends Model
     
     use HasFactory;
 
+    protected $casts = [
+        'date_time' => 'datetime',
+    ];
+
     public function ufo()
     {
         return $this->hasOne(UfoSighting::class);

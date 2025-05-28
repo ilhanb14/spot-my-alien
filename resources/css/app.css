@@ -66,10 +66,10 @@ select:focus[data-flux-control] {
 } */
 
 .form-input {
-    @apply bg-gray-100 border border-white p-4;
+    @apply border border-gray-700 p-4 rounded-md bg-gray-800;
 }
 .form-input input, .form-input select, .form-input textarea {
-    @apply border border-blue-500 rounded-md bg-indigo-100 p-2 w-full;
+    @apply border border-blue-500 rounded-md bg-indigo-100 p-2 w-full text-gray-900;
 }
 .form-input input[type=checkbox] {
     @apply w-auto;

@@ -1,12 +1,11 @@
 <div class="w-120 mx-auto p-6">
-    <form wire:submit="saveSighthing()">
-        <h1 class="font-bold text-3xl">Iets gezien?</h1>
+    <form wire:submit.prevent="saveSighting">
 
-        <div class="border bg-indigo-100 text-xl font-bold p-2" x-show="$wire.message != ''">{{ $message }}</div>
+        <div class="border bg-indigo-100 text-xl font-bold p-2 text-gray-900 mb-4 rounded-md" x-show="$wire.message != ''">{{ $message }}</div>
 
         <div>
             <h2>Wat heb je gezien?</h2>
-            <div class="flex justify-between items-center bg-gray-100 p-4">
+            <div class="flex justify-between items-center bg-gray-900 p-4">
                 @foreach ($sightingTypes as $sightingType)
                     <div>                        
                         <label class="flex flex-col items-center">
@@ -23,7 +22,7 @@
             </div>
         </div>
         @if (!is_null($type))
-            <div>
+            <div class="bg-gray-900 space-y-2">
                 <h2 class="font-bold text-2xl">{{ strtoupper($sightingTypes->find($type)->name) }}</h2>
 
                 <div class="form-input">
@@ -69,6 +68,7 @@
                                     <label class="text-center">
                                         <input
                                             type="radio"
+                                            name="ufo_shape"
                                             value="{{ $shape->id }}"
                                             wire:model="ufo_shape_id"
                                             class="mr-2"
@@ -78,10 +78,10 @@
                                     </label>
                                 </div>
                             @endforeach
-                            @error('ufo_shape_id')
-                                <div class="validationError">{{ $message }}</div>
-                            @enderror
                         </div>
+                        @error('ufo_shape_id')
+                            <div class="validationError">{{ $message }}</div>
+                        @enderror
                         <div class="form-input">
                             <label>Snelheid: {{ $ufo_speed }}</label>
                             <input type="range" wire:model.live.debounce="ufo_speed" min="0" max="10" step="1" class="w-full bg-indigo-800">
@@ -124,16 +124,17 @@
                         <div class="flex justify-between items-center">
                             @foreach ($shapes as $shape)
                                 <div>
-                                    <input
-                                        id="shape_{{ $shape->id }}"
-                                        type="radio"
-                                        value="{{ $shape->id }}"
-                                        wire:model="alien_shape_id"
-                                        class="mr-2"
-                                    >
-                                    <label for="shape_{{ $shape->id }}">
-                                        {{ $shape->name }}
-                                        <img src="{{ $shape->image_path }}" class="w-12">
+                                    <label class="flex flex-col justify-center items-center">
+                                        <input
+                                            id="shape_{{ $shape->id }}"
+                                            type="radio"
+                                            name="alien_shape"
+                                            value="{{ $shape->id }}"
+                                            wire:model="alien_shape_id"
+                                            class="mr-2"
+                                        >
+                                        <span>{{ $shape->name }}</span>
+                                        <img src="/storage/{{ $shape->image_path }}" class="w-12">
                                     </label>
                                 </div>
                             @endforeach
@@ -164,6 +165,9 @@
                             <div class="form-input">
                                 <label>Lengte van ontvoering:</label>
                                 <input type="text" wire:model="abduction_duration">
+                                @error('abduction_duration')
+                                    <div class="validationError">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-input">
                                 <label for="abductionState">Hoe werd het onderwerp teruggebracht?</label>

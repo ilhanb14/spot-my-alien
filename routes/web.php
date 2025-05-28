@@ -14,10 +14,6 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/sighting', function () {
-    return view('sighting');
-});
-
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -51,6 +47,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('password', Password::class)->name('settings.password');
         Route::get('appearance', Appearance::class)->name('settings.appearance');
     });
+
+    Route::get('/sighting', function () {
+        return view('sighting');
+    })->name('sighting');
 });
 // Registration Routes
 Route::get('/registreer', [AuthController::class, 'showRegisterForm'])->name('register');

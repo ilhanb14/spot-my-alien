@@ -23,6 +23,7 @@
                     <!-- Desktop nav links -->
                     <div class="hidden md:block ml-10">
                         <div class="flex space-x-4">
+                            <a href="{{ route('sighting') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Nieuwe melding</a>
                             <a href="{{ route('sightings') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Recent</a>
                             <a href="{{ route('sightings') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Archief</a>
                             <a href="{{ route('about') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Over Ons</a>

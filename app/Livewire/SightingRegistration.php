@@ -13,6 +13,7 @@ use App\Models\Type;
 use App\Models\UfoShape;
 use App\Models\UfoSighting;
 use App\Mail\SightingMail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Reactive;
@@ -34,7 +35,6 @@ class SightingRegistration extends Component
     public $type;
     public $date_time = '';
     public $description = '';
-    public $user_id = '';
     public $location = '';
 
     public $photo_path = '';
@@ -99,7 +99,7 @@ class SightingRegistration extends Component
         $this->abduction_live_subject = $value ? 1 : 0;
     }
 
-    public function saveSighthing()
+    public function saveSighting()
     {
 
         $this->validate();
@@ -108,9 +108,9 @@ class SightingRegistration extends Component
         // First store the generic sighting
         $sighting = Sighting::create([
             'type_id' => $this->type,
-            'date_time' => $this->date_time,
+            'date_time' => Carbon::createFromFormat('Y-m-d\TH:i', $this->date_time),
             'description' => $this->description,
-            'user_id' => 1,
+            'user_id' => $user->id ?? Auth::id(),
             'location' => $this->location,
             'status_id' => 1,
         ]);
@@ -126,8 +126,10 @@ class SightingRegistration extends Component
         }
 
         // Then store the type specific sighting details
+        $type = Type::find($this->type);
+        if (!$type) return;
 
-        switch (Type::find($this->type)->name) {
+        switch ($type->name) {
             case "ufo":
                 $ufoSighting = UfoSighting::create([
                     'sighting_id' => $sighting->id,
@@ -177,10 +179,13 @@ class SightingRegistration extends Component
                 ->subject($subject);
         });
 
-        $this->reset();
-        $this->mount();
+        // $this->reset();
+        // $this->mount();
+        $this->resetExcept(['sightingTypes']);
 
         $this->message = 'Uw melding werd geregistreerd';
+
+        // return $this->redirect(route('sightings'), navigate: true);
     }
 
     // Form validation (based on selected sighting type)
@@ -191,11 +196,14 @@ class SightingRegistration extends Component
             'date_time' => 'required',
             'location' => 'required|min:2',
             'description' => 'required|min:10',
-            'photo.*' => 'image|max:1024'
+            'photo.*' => 'image|mimes:jpg,jpeg,png,gif|max:1024'
         ];
 
+        $type = Type::find($this->type);
+        if (!$type) return;
+
         // Add validation for the type specific form fields
-        switch (Type::find($this->type)->name) {
+        switch ($type->name) {
             case "ufo":
                 return array_merge($genericFields, [
                     'ufo_shape_id' => 'required'
@@ -210,6 +218,7 @@ class SightingRegistration extends Component
                 return array_merge($genericFields, [
                     'abduction_subject' => 'required|min:2',
                     'abduction_state_id' => $this->abduction_returned ? 'required' : '',
+                    'abduction_duration' => $this->abduction_returned ? 'required' : '',
                 ]);
             break;
         }
@@ -231,6 +240,7 @@ class SightingRegistration extends Component
             'abduction_subject.required' => 'Geef het onderwerp van de ontvoering in.',
             'abduction_subject.min' => 'Het onderwerp van de ontvoering moet minstens 2 karakters zijn.',
             'abduction_state_id.required' => 'Kies de status van het teruggebrachte onderwerp.',
+            'abduction_duration.required' => 'Geef in hoe lang de ontvoering duurde.',
             'photo.*.max' => 'De foto mag niet groter zijn dan 1MB'
         ];
     }
