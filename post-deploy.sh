@@ -23,6 +23,8 @@ echo "📦 Running Laravel deployment commands..."
 # Install/update PHP dependencies with Composer
 echo "🔄 Updating Composer dependencies..."
 composer install --no-interaction --prefer-dist --optimize-autoloader
+npm install
+npm run build
 
 # Clear all caches
 php artisan cache:clear
@@ -34,6 +36,6 @@ php artisan view:clear
 php artisan storage:link
 
 # Run migrations (optional, uncomment if needed)
-php artisan migrate --force
+php artisan migrate --force --seed
 
 echo "✅ Deployment completed successfully!"
