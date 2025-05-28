@@ -39,9 +39,9 @@
 
             <div class="bg-gray-800 p-6 rounded-lg text-center">
                 <h2 class="text-2xl font-bold text-blue-400 mb-4">Steun Ons</h2>
-                <button class="bg-green-500 hover:bg-green-600 px-8 py-3 rounded-lg font-medium">
+                <a href="/doneer" class="inline-block bg-green-500 hover:bg-green-600 px-8 py-3 rounded-lg font-medium text-white text-center">
                     🚀 Doneer Nu
-                </button>
+                </a>
                 <p class="text-sm text-gray-400 mt-2">(Voor meer koffie tijdens nachtelijke UFO-jachten)</p>
             </div>
         </div>
