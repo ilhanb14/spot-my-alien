@@ -159,7 +159,7 @@ class SightingRegistration extends Component
                     'examination' => $this->abduction_examination,
                     'returned' => $this->abduction_returned,
                     'live_subject' => $this->abduction_live_subject,
-                    'state_id' => $this->abduction_state_id
+                    'abductionstate_id' => $this->abduction_state_id
                 ]);
             break;
         }
