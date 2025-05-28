@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::table('sightings', function (Blueprint $table) {
             $table->boolean('is_featured')->default(false);
-            $table->string('image_url')->nullable();
         });
     }
 
