@@ -16,6 +16,7 @@
                     <div class="hidden md:block ml-10">
                         <div class="flex space-x-4">
                             <a href="{{ route('home') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Home</a>
+                            <a href="{{ route('sighting') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Nieuwe melding</a>
                             <a href="{{ route('sightings') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Archief</a>
                             <a href="{{ route('about') }}" class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md">Over Ons</a>
                         </div>
@@ -30,7 +31,7 @@
         <div class="space-y-6">
             @foreach ($sightings as $sighting)
                 <div class="border border-gray-700 p-4 rounded-md bg-gray-800">
-                    <p><strong>Datum:</strong> {{ $sighting['date'] }}</p>
+                    <p><strong>Datum:</strong> {{ $sighting['date_time'] }}</p>
                     <p><strong>Locatie:</strong> {{ $sighting['location'] }}</p>
                     <p><strong>Beschrijving:</strong> {{ $sighting['description'] }}</p>
                 </div>

@@ -14,6 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 Route::get('/waarnemingen', function () {
     try {
         $sightings = Sighting::orderBy('id', 'desc')->take(5)->get();
@@ -34,7 +37,10 @@ Route::middleware(['auth'])->group(function () {
     // Payment Routes
     Route::get('/doneer', [PaymentController::class, 'showDonationForm']);
     Route::post('/doneer', [PaymentController::class, 'process']);
-    
+
+    Route::get('/sighting', function () {
+        return view('sighting');
+    })->name('sighting');
 });
 // Registration Routes
 Route::get('/registreer', [AuthController::class, 'showRegisterForm'])->name('register');

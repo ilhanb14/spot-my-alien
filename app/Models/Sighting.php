@@ -6,11 +6,15 @@ use Database\Factories\SightingFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use function PHPSTORM_META\type;
-
 class Sighting extends Model
 {
+    protected $guarded = [''];
+    
     use HasFactory;
+
+    protected $casts = [
+        'date_time' => 'datetime',
+    ];
 
     public function ufo()
     {
