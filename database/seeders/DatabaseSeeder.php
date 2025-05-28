@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\AlienSighting;
+use App\Models\Sighting;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,13 +15,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory(10)->create();
+        
 
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-            'is_admin' => 1
+        $this->call([
+            UserSeeder::class,
+            StatesSeeder::class,
+            IntentionSeeder::class,
+            StatusSeeder::class,
+            ShapeSeeder::class,
+            TypeSeeder::class
         ]);
+
+        // Sighting::factory()->count(10)->alientype()->create();
+        
     }
 }

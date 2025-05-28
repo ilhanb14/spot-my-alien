@@ -9,16 +9,19 @@ class AbductionSighting extends Model
     public $timestamps = false;
     protected $guarded = [];
     
+
     public function sighting()
     {
         return $this->belongsTo(Sighting::class);
     }
 
-    public function abductionstate(){
+    public function abductionstate()
+    {
         return $this->belongsTo(AbductionState::class);
     }
 
-    public function status(){
+    public function status()
+    {
         return $this->belongsTo(Status::class);
     }
 }

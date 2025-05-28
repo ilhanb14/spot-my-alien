@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
-    public function abductionsightings()
+    protected $table = "statuses";
+    public function sightings()
     {
-        return $this->hasMany(AbductionSighting::class);
+        return $this->hasMany(Sighting::class);
     }
 }

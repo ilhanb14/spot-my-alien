@@ -39,7 +39,7 @@ class AuthController extends Controller
         ]);
 
         // Redirect back with success message
-        return redirect('/register')->with('success', 'Gebruiker geregistreerd!');
+        return redirect('/registreer')->with('success', 'Gebruiker geregistreerd!');
     }
 
     public function showLoginForm()

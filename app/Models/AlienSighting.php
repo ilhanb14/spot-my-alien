@@ -9,6 +9,7 @@ class AlienSighting extends Model
     public $timestamps = false;
     protected $guarded = [];
     
+
     public function sighting()
     {
         return $this->belongsTo(Sighting::class);
@@ -16,6 +17,11 @@ class AlienSighting extends Model
 
     public function alienshape()
     {
-        return $this->belongsTo(AlienShape::class);
+        return $this->belongsTo(AlienShape::class, "shape_id");
+    }
+
+    public function intention()
+    {
+        return $this->belongsTo(Intention::class);
     }
 }
